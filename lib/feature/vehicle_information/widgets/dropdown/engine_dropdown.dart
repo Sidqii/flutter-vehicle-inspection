@@ -13,6 +13,8 @@ class EngineDropdown extends StatelessWidget {
 
       builder: (context, state) {
         return DropdownMenuFormField(
+          key: ValueKey(state),
+
           label: Text('Kondisi mesin'),
           expandedInsets: EdgeInsets.zero,
 

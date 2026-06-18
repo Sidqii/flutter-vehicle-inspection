@@ -1,32 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-class VehiclePhoto extends Equatable {
-  final String label;
-  final String path;
-  final double? latitude;
-  final double? longitude;
-  final DateTime timeStamp;
-  final String surveyorName;
-
-  const VehiclePhoto({
-    required this.label,
-    required this.path,
-    required this.latitude,
-    required this.longitude,
-    required this.timeStamp,
-    required this.surveyorName,
-  });
-
-  @override
-  List<Object?> get props => [
-    label,
-    path,
-    latitude,
-    longitude,
-    timeStamp,
-    surveyorName,
-  ];
-}
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_photo.dart';
 
 class VehiclePhotos extends Equatable {
   final VehiclePhoto? front;
@@ -43,13 +16,13 @@ class VehiclePhotos extends Equatable {
     this.speedometer,
   });
 
-  bool get isComplete {
-    return front != null &&
-        back != null &&
-        left != null &&
-        right != null &&
-        speedometer != null;
-  }
+  bool get isComplete => [
+    front,
+    back,
+    right,
+    left,
+    speedometer,
+  ].every((element) => element != null);
 
   VehiclePhotos copyWith({
     VehiclePhoto? front,
@@ -64,6 +37,36 @@ class VehiclePhotos extends Equatable {
       left: left ?? this.left,
       right: right ?? this.right,
       speedometer: speedometer ?? this.speedometer,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'front': front?.toJson(),
+      'back': back?.toJson(),
+      'left': left?.toJson(),
+      'right': right?.toJson(),
+      'speedometer': speedometer?.toJson(),
+    };
+  }
+
+  factory VehiclePhotos.fromJson(Map<String, dynamic> json) {
+    return VehiclePhotos(
+      front: json['front'] == null
+          ? null
+          : VehiclePhoto.fromJson(json['front']),
+
+      back: json['back'] == null ? null : VehiclePhoto.fromJson(json['back']),
+
+      left: json['left'] == null ? null : VehiclePhoto.fromJson(json['left']),
+
+      right: json['right'] == null
+          ? null
+          : VehiclePhoto.fromJson(json['right']),
+
+      speedometer: json['speedometer'] == null
+          ? null
+          : VehiclePhoto.fromJson(json['speedometer']),
     );
   }
 

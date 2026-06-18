@@ -11,6 +11,14 @@ class VehicleSignature extends Equatable {
     return VehicleSignature(path: path ?? this.path);
   }
 
+  Map<String, dynamic> toJson() {
+    return {'path': path};
+  }
+
+  factory VehicleSignature.fromJson(Map<String, dynamic> json) {
+    return VehicleSignature(path: json['path']);
+  }
+
   @override
   List<Object?> get props => [path];
 }

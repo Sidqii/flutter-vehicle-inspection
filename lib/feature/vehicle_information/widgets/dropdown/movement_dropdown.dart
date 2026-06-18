@@ -13,6 +13,8 @@ class MovementDropdown extends StatelessWidget {
 
       builder: (context, state) {
         return DropdownMenuFormField(
+          key: ValueKey(state),
+
           label: Text('Pemindahan'),
           expandedInsets: EdgeInsets.zero,
 

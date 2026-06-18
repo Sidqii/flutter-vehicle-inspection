@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/bloc/vehicle_bloc.dart';
@@ -14,13 +16,37 @@ import 'package:vehicle_inspection_app/feature/vehicle_information/widgets/textf
 import 'package:vehicle_inspection_app/feature/vehicle_information/widgets/textfield/kilometer_text_field.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/widgets/textfield/plate_text_field.dart';
 
-class TestPage extends StatelessWidget {
-  const TestPage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   static const titleStyle = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w300,
   );
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Timer? autoSaveTimer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<VehicleBloc>().add(const LoadDraftEvent());
+
+    autoSaveTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
+      context.read<VehicleBloc>().add(const SaveDraftEvent());
+    });
+  }
+
+  @override
+  void dispose() {
+    autoSaveTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +88,7 @@ class TestPage extends StatelessWidget {
                 children: [
                   Text.rich(
                     TextSpan(
-                      style: titleStyle,
+                      style: HomePage.titleStyle,
                       children: [
                         TextSpan(
                           text: 'Informasi dasar ',
@@ -80,7 +106,7 @@ class TestPage extends StatelessWidget {
 
                   Text.rich(
                     TextSpan(
-                      style: titleStyle,
+                      style: HomePage.titleStyle,
                       children: [
                         TextSpan(
                           text: 'Informasi kondisi ',
@@ -100,7 +126,7 @@ class TestPage extends StatelessWidget {
 
                   Text.rich(
                     TextSpan(
-                      style: titleStyle,
+                      style: HomePage.titleStyle,
                       children: [
                         TextSpan(
                           text: 'Informasi lokasi ',
@@ -120,7 +146,7 @@ class TestPage extends StatelessWidget {
 
                   Text.rich(
                     TextSpan(
-                      style: titleStyle,
+                      style: HomePage.titleStyle,
                       children: [
                         TextSpan(
                           text: 'Informasi foto ',
@@ -136,7 +162,7 @@ class TestPage extends StatelessWidget {
 
                   Text.rich(
                     TextSpan(
-                      style: titleStyle,
+                      style: HomePage.titleStyle,
                       children: [
                         TextSpan(
                           text: 'Informasi kepemilikan ',

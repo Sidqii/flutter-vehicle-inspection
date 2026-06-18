@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/bloc/vehicle_bloc.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_photo.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_photos.dart';
 
 class PhotoChecklistPalete extends StatelessWidget {

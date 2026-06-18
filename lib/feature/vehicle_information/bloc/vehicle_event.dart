@@ -110,3 +110,15 @@ class SignautrePadEvent extends VehicleEvent {
 class SubmitInspectionEvent extends VehicleEvent {
   const SubmitInspectionEvent();
 }
+
+class SaveDraftEvent extends VehicleEvent {
+  const SaveDraftEvent();
+}
+
+class LoadDraftEvent extends VehicleEvent {
+  const LoadDraftEvent();
+}
+
+class ClearDraftEvent extends VehicleEvent {
+  const ClearDraftEvent();
+}

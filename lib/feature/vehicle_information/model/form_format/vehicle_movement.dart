@@ -16,6 +16,21 @@ class VehicleMovement extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {'status': status?.name, 'unable_reason': unableReason};
+  }
+
+  factory VehicleMovement.fromJson(Map<String, dynamic> json) {
+    return VehicleMovement(
+      status: json['status'] == null
+          ? null
+          : MovementStatus.values.firstWhere(
+              (element) => element.name == json['status'],
+            ),
+      unableReason: json['unable_reason'] ?? '',
+    );
+  }
+
   @override
   List<Object?> get props => [status, unableReason];
 }

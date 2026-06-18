@@ -40,6 +40,28 @@ class VehicleInspectionForm extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'information': information,
+      'location': location,
+      'photos':photos,
+      'movement': movement,
+      'signature': signature,
+      'additional_note': additionalNote,
+    };
+  }
+
+  factory VehicleInspectionForm.fromJson(Map<String, dynamic> json) {
+    return VehicleInspectionForm(
+      information: VehicleInformation.fromJson(json['information']),
+      location: VehicleLocation.fromJson(json['location']),
+      photos: VehiclePhotos.fromJson(json['photos']),
+      movement: VehicleMovement.fromJson(json['movement']),
+      signature: VehicleSignature.fromJson(json['signature']),
+      additionalNote: json['additional_note'],
+    );
+  }
+
   @override
   List<Object?> get props => [
     information,

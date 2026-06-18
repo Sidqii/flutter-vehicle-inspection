@@ -13,6 +13,8 @@ class ExteriorDropdown extends StatelessWidget {
 
       builder: (context, state) {
         return DropdownMenuFormField(
+          key: ValueKey(state),
+
           label: Text('Eksterior kendaraan'),
           expandedInsets: EdgeInsets.zero,
 

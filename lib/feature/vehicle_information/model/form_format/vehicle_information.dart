@@ -29,6 +29,32 @@ class VehicleInformation extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'plate_number': plateNumber,
+      'exterior_condition': exteriorCondition?.name,
+      'engine_condition': engineCondition?.name,
+      'kilometer': kilometer,
+    };
+  }
+
+  factory VehicleInformation.fromJson(Map<String, dynamic> json) {
+    return VehicleInformation(
+      plateNumber: json['plate_number'] ?? '',
+      exteriorCondition: json['exterior_condition'] == null
+          ? null
+          : ExteriorCondition.values.firstWhere(
+              (element) => element.name == json['exterior_condition'],
+            ),
+      engineCondition: json['engine_condition'] == null
+          ? null
+          : EngineCondition.values.firstWhere(
+              (element) => element.name == json['engine_condition'],
+            ),
+      kilometer: json['kilometer'] ?? 0,
+    );
+  }
+
   @override
   List<Object?> get props => [
     plateNumber,
