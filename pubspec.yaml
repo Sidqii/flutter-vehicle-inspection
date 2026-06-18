@@ -1,0 +1,34 @@
+name: vehicle_inspection_app
+description: "A new Flutter project."
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  # core
+  flutter:
+    sdk: flutter
+
+  # statemanagement
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.7
+
+  # location
+  geolocator: ^13.0.4
+  geocoding: ^3.0.0
+
+  # camera
+  image_picker: ^1.1.2
+
+  # siganute
+  signature: ^5.5.0
+  path_provider: ^2.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
