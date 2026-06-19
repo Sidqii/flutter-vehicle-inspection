@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_location.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/base_location.dart';
 
 class VehicleLocationService {
   Future<bool> _handlerPermission() async {
@@ -51,7 +51,7 @@ class VehicleLocationService {
         .join(', ');
   }
 
-  Future<VehicleLocation> getCurrentLocation() async {
+  Future<BaseLocation> getCurrentLocation() async {
     final permission = await _handlerPermission();
 
     if (!permission) {
@@ -67,7 +67,7 @@ class VehicleLocationService {
 
     final address = await _getAddress(position.latitude, position.longitude);
 
-    return VehicleLocation(
+    return BaseLocation(
       latitude: position.latitude,
       longitude: position.longitude,
       address: address,

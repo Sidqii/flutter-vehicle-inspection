@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/bloc/vehicle_bloc.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/exterior_condition.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_exterior.dart';
 
 class ExteriorDropdown extends StatelessWidget {
   const ExteriorDropdown({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<VehicleBloc, VehicleState, ExteriorCondition?>(
+    return BlocSelector<VehicleBloc, VehicleState, EnumExterior?>(
       selector: (state) => state.form.information.exteriorCondition,
 
       builder: (context, state) {
@@ -44,7 +44,7 @@ class ExteriorDropdown extends StatelessWidget {
             ),
           ),
 
-          dropdownMenuEntries: ExteriorCondition.values.map((condition) {
+          dropdownMenuEntries: EnumExterior.values.map((condition) {
             return DropdownMenuEntry(value: condition, label: condition.label);
           }).toList(),
 

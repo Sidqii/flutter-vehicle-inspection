@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/engine_condition.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/exterior_condition.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/movement_status.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/photo_type.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_photo.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_photos.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/validator/vehicle_validator.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_engine.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_exterior.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_movement.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_photo.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/base_photo.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/photos.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/validator/input_validator.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/model/vehicle_inspection_form.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/service/vehicle_location_service.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/service/vehicle_photo_service.dart';
@@ -94,7 +94,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
         form: state.form.copyWith(
           movement: state.form.movement.copyWith(
             status: event.value,
-            unableReason: event.value == MovementStatus.yes
+            unableReason: event.value == EnumMovement.yes
                 ? ''
                 : state.form.movement.unableReason,
           ),
@@ -175,7 +175,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
 
       if (path == null) return;
 
-      final photo = VehiclePhoto(
+      final photo = BasePhoto(
         label: event.valueType.label,
         path: path,
         latitude: state.form.location.latitude,
@@ -186,26 +186,26 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
 
       final photos = state.form.photos;
 
-      VehiclePhotos updatePhotos;
+      Photos updatePhotos;
 
       switch (event.valueType) {
-        case PhotoType.front:
+        case EnumPhoto.front:
           updatePhotos = photos.copyWith(front: photo);
           break;
 
-        case PhotoType.back:
+        case EnumPhoto.back:
           updatePhotos = photos.copyWith(back: photo);
           break;
 
-        case PhotoType.left:
+        case EnumPhoto.left:
           updatePhotos = photos.copyWith(left: photo);
           break;
 
-        case PhotoType.right:
+        case EnumPhoto.right:
           updatePhotos = photos.copyWith(right: photo);
           break;
 
-        case PhotoType.speedometer:
+        case EnumPhoto.speedometer:
           updatePhotos = photos.copyWith(speedometer: photo);
           break;
       }
@@ -239,7 +239,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
       state.copyWith(status: VehicleInspectionStatus.initial, message: null),
     );
 
-    final error = VehicleValidator.validate(state.form);
+    final error = InputValidator.validate(state.form);
 
     if (error != null) {
       emit(

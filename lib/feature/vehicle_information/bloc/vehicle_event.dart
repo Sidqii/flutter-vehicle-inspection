@@ -26,7 +26,7 @@ class KilometerEvent extends VehicleEvent {
 }
 
 class ExteriorConditionEvent extends VehicleEvent {
-  final ExteriorCondition value;
+  final EnumExterior value;
 
   const ExteriorConditionEvent(this.value);
 
@@ -35,7 +35,7 @@ class ExteriorConditionEvent extends VehicleEvent {
 }
 
 class EngineConditionEvent extends VehicleEvent {
-  final EngineCondition value;
+  final EnumEngine value;
 
   const EngineConditionEvent(this.value);
 
@@ -44,7 +44,7 @@ class EngineConditionEvent extends VehicleEvent {
 }
 
 class MovementStatusEvent extends VehicleEvent {
-  final MovementStatus value;
+  final EnumMovement value;
 
   const MovementStatusEvent(this.value);
 
@@ -90,7 +90,7 @@ class CurrentLocationEvent extends VehicleEvent {
 }
 
 class TakePhotoEvent extends VehicleEvent {
-  final PhotoType valueType;
+  final EnumPhoto valueType;
 
   const TakePhotoEvent(this.valueType);
 

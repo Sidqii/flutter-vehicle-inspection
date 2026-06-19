@@ -1,6 +1,6 @@
 import 'package:vehicle_inspection_app/feature/vehicle_information/model/vehicle_inspection_form.dart';
 
-class VehicleValidator {
+class InputValidator {
   static String? validate(VehicleInspectionForm form) {
     final cannotBeMoved = form.movement.cannotBeMoved;
     final unableReason = form.movement.unableReason;

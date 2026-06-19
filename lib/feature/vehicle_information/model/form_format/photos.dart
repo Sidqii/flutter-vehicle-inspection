@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_photo.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/base_photo.dart';
 
-class VehiclePhotos extends Equatable {
-  final VehiclePhoto? front;
-  final VehiclePhoto? back;
-  final VehiclePhoto? left;
-  final VehiclePhoto? right;
-  final VehiclePhoto? speedometer;
+class Photos extends Equatable {
+  final BasePhoto? front;
+  final BasePhoto? back;
+  final BasePhoto? left;
+  final BasePhoto? right;
+  final BasePhoto? speedometer;
 
-  const VehiclePhotos({
+  const Photos({
     this.front,
     this.back,
     this.left,
@@ -24,14 +24,14 @@ class VehiclePhotos extends Equatable {
     speedometer,
   ].every((element) => element != null);
 
-  VehiclePhotos copyWith({
-    VehiclePhoto? front,
-    VehiclePhoto? back,
-    VehiclePhoto? left,
-    VehiclePhoto? right,
-    VehiclePhoto? speedometer,
+  Photos copyWith({
+    BasePhoto? front,
+    BasePhoto? back,
+    BasePhoto? left,
+    BasePhoto? right,
+    BasePhoto? speedometer,
   }) {
-    return VehiclePhotos(
+    return Photos(
       front: front ?? this.front,
       back: back ?? this.back,
       left: left ?? this.left,
@@ -50,23 +50,23 @@ class VehiclePhotos extends Equatable {
     };
   }
 
-  factory VehiclePhotos.fromJson(Map<String, dynamic> json) {
-    return VehiclePhotos(
+  factory Photos.fromJson(Map<String, dynamic> json) {
+    return Photos(
       front: json['front'] == null
           ? null
-          : VehiclePhoto.fromJson(json['front']),
+          : BasePhoto.fromJson(json['front']),
 
-      back: json['back'] == null ? null : VehiclePhoto.fromJson(json['back']),
+      back: json['back'] == null ? null : BasePhoto.fromJson(json['back']),
 
-      left: json['left'] == null ? null : VehiclePhoto.fromJson(json['left']),
+      left: json['left'] == null ? null : BasePhoto.fromJson(json['left']),
 
       right: json['right'] == null
           ? null
-          : VehiclePhoto.fromJson(json['right']),
+          : BasePhoto.fromJson(json['right']),
 
       speedometer: json['speedometer'] == null
           ? null
-          : VehiclePhoto.fromJson(json['speedometer']),
+          : BasePhoto.fromJson(json['speedometer']),
     );
   }
 

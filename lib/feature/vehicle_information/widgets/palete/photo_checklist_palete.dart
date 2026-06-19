@@ -3,15 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/bloc/vehicle_bloc.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_photo.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_photos.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/base_photo.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/photos.dart';
 
 class PhotoChecklistPalete extends StatelessWidget {
   const PhotoChecklistPalete({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<VehicleBloc, VehicleState, VehiclePhotos>(
+    return BlocSelector<VehicleBloc, VehicleState, Photos>(
       selector: (state) => state.form.photos,
       builder: (context, state) {
         return Container(
@@ -46,7 +46,7 @@ class PhotoChecklistPalete extends StatelessWidget {
 
 class _PhotoItem extends StatelessWidget {
   final String label;
-  final VehiclePhoto? photo;
+  final BasePhoto? photo;
 
   const _PhotoItem({required this.label, required this.photo});
 

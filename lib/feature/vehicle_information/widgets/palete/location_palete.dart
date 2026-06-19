@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/bloc/vehicle_bloc.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_location.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/base_location.dart';
 
 class LocationPalete extends StatelessWidget {
   const LocationPalete({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<VehicleBloc, VehicleState, VehicleLocation>(
+    return BlocSelector<VehicleBloc, VehicleState, BaseLocation>(
       selector: (state) => state.form.location,
 
       builder: (context, state) {

@@ -1,33 +1,33 @@
 import 'package:equatable/equatable.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_information.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_location.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_movement.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_photos.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/vehicle_signature.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/information.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/base_location.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/movement.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/photos.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/signature.dart';
 
 class VehicleInspectionForm extends Equatable {
-  final VehicleInformation information;
-  final VehicleLocation location;
-  final VehiclePhotos photos;
-  final VehicleMovement movement;
-  final VehicleSignature signature;
+  final Information information;
+  final BaseLocation location;
+  final Photos photos;
+  final Movement movement;
+  final Signature signature;
   final String additionalNote;
 
   const VehicleInspectionForm({
-    this.information = const VehicleInformation(),
-    this.location = const VehicleLocation(),
-    this.photos = const VehiclePhotos(),
-    this.movement = const VehicleMovement(),
-    this.signature = const VehicleSignature(),
+    this.information = const Information(),
+    this.location = const BaseLocation(),
+    this.photos = const Photos(),
+    this.movement = const Movement(),
+    this.signature = const Signature(),
     this.additionalNote = '',
   });
 
   VehicleInspectionForm copyWith({
-    VehicleInformation? information,
-    VehicleLocation? location,
-    VehiclePhotos? photos,
-    VehicleMovement? movement,
-    VehicleSignature? signature,
+    Information? information,
+    BaseLocation? location,
+    Photos? photos,
+    Movement? movement,
+    Signature? signature,
     String? additionalNote,
   }) {
     return VehicleInspectionForm(
@@ -44,7 +44,7 @@ class VehicleInspectionForm extends Equatable {
     return {
       'information': information,
       'location': location,
-      'photos':photos,
+      'photos': photos,
       'movement': movement,
       'signature': signature,
       'additional_note': additionalNote,
@@ -53,11 +53,11 @@ class VehicleInspectionForm extends Equatable {
 
   factory VehicleInspectionForm.fromJson(Map<String, dynamic> json) {
     return VehicleInspectionForm(
-      information: VehicleInformation.fromJson(json['information']),
-      location: VehicleLocation.fromJson(json['location']),
-      photos: VehiclePhotos.fromJson(json['photos']),
-      movement: VehicleMovement.fromJson(json['movement']),
-      signature: VehicleSignature.fromJson(json['signature']),
+      information: Information.fromJson(json['information']),
+      location: BaseLocation.fromJson(json['location']),
+      photos: Photos.fromJson(json['photos']),
+      movement: Movement.fromJson(json['movement']),
+      signature: Signature.fromJson(json['signature']),
       additionalNote: json['additional_note'],
     );
   }

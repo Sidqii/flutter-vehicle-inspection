@@ -1,27 +1,27 @@
 import 'package:equatable/equatable.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/engine_condition.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/exterior_condition.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_engine.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_exterior.dart';
 
-class VehicleInformation extends Equatable {
+class Information extends Equatable {
   final String plateNumber;
-  final ExteriorCondition? exteriorCondition;
-  final EngineCondition? engineCondition;
+  final EnumExterior? exteriorCondition;
+  final EnumEngine? engineCondition;
   final int kilometer;
 
-  const VehicleInformation({
+  const Information({
     this.plateNumber = '',
     this.exteriorCondition,
     this.engineCondition,
     this.kilometer = 0,
   });
 
-  VehicleInformation copyWith({
+  Information copyWith({
     String? plateNumber,
-    ExteriorCondition? exteriorCondition,
-    EngineCondition? engineCondition,
+    EnumExterior? exteriorCondition,
+    EnumEngine? engineCondition,
     int? kilometer,
   }) {
-    return VehicleInformation(
+    return Information(
       plateNumber: plateNumber ?? this.plateNumber,
       exteriorCondition: exteriorCondition ?? this.exteriorCondition,
       engineCondition: engineCondition ?? this.engineCondition,
@@ -38,17 +38,17 @@ class VehicleInformation extends Equatable {
     };
   }
 
-  factory VehicleInformation.fromJson(Map<String, dynamic> json) {
-    return VehicleInformation(
+  factory Information.fromJson(Map<String, dynamic> json) {
+    return Information(
       plateNumber: json['plate_number'] ?? '',
       exteriorCondition: json['exterior_condition'] == null
           ? null
-          : ExteriorCondition.values.firstWhere(
+          : EnumExterior.values.firstWhere(
               (element) => element.name == json['exterior_condition'],
             ),
       engineCondition: json['engine_condition'] == null
           ? null
-          : EngineCondition.values.firstWhere(
+          : EnumEngine.values.firstWhere(
               (element) => element.name == json['engine_condition'],
             ),
       kilometer: json['kilometer'] ?? 0,

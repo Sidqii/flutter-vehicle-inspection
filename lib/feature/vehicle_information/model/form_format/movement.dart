@@ -1,16 +1,16 @@
 import 'package:equatable/equatable.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/movement_status.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_movement.dart';
 
-class VehicleMovement extends Equatable {
-  final MovementStatus? status;
+class Movement extends Equatable {
+  final EnumMovement? status;
   final String unableReason;
 
-  const VehicleMovement({this.status, this.unableReason = ''});
+  const Movement({this.status, this.unableReason = ''});
 
-  bool get cannotBeMoved => status == MovementStatus.no;
+  bool get cannotBeMoved => status == EnumMovement.no;
 
-  VehicleMovement copyWith({MovementStatus? status, String? unableReason}) {
-    return VehicleMovement(
+  Movement copyWith({EnumMovement? status, String? unableReason}) {
+    return Movement(
       status: status ?? this.status,
       unableReason: unableReason ?? this.unableReason,
     );
@@ -20,11 +20,11 @@ class VehicleMovement extends Equatable {
     return {'status': status?.name, 'unable_reason': unableReason};
   }
 
-  factory VehicleMovement.fromJson(Map<String, dynamic> json) {
-    return VehicleMovement(
+  factory Movement.fromJson(Map<String, dynamic> json) {
+    return Movement(
       status: json['status'] == null
           ? null
-          : MovementStatus.values.firstWhere(
+          : EnumMovement.values.firstWhere(
               (element) => element.name == json['status'],
             ),
       unableReason: json['unable_reason'] ?? '',

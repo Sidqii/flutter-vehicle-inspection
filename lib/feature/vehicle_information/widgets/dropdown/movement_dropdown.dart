@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/bloc/vehicle_bloc.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/movement_status.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_movement.dart';
 
 class MovementDropdown extends StatelessWidget {
   const MovementDropdown({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<VehicleBloc, VehicleState, MovementStatus?>(
+    return BlocSelector<VehicleBloc, VehicleState, EnumMovement?>(
       selector: (state) => state.form.movement.status,
 
       builder: (context, state) {
@@ -44,7 +44,7 @@ class MovementDropdown extends StatelessWidget {
             ),
           ),
 
-          dropdownMenuEntries: MovementStatus.values.map((condition) {
+          dropdownMenuEntries: EnumMovement.values.map((condition) {
             return DropdownMenuEntry(value: condition, label: condition.label);
           }).toList(),
 

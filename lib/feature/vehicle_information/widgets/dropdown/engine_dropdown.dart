@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/bloc/vehicle_bloc.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/engine_condition.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_engine.dart';
 
 class EngineDropdown extends StatelessWidget {
   const EngineDropdown({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<VehicleBloc, VehicleState, EngineCondition?>(
+    return BlocSelector<VehicleBloc, VehicleState, EnumEngine?>(
       selector: (state) => state.form.information.engineCondition,
 
       builder: (context, state) {
@@ -44,7 +44,7 @@ class EngineDropdown extends StatelessWidget {
             ),
           ),
 
-          dropdownMenuEntries: EngineCondition.values.map((e) {
+          dropdownMenuEntries: EnumEngine.values.map((e) {
             return DropdownMenuEntry(value: e, label: e.label);
           }).toList(),
 

@@ -1,25 +1,25 @@
 import 'package:equatable/equatable.dart';
 
-class VehicleLocation extends Equatable {
+class BaseLocation extends Equatable {
   final double? latitude;
   final double? longitude;
   final String address;
   final String addressNote;
 
-  const VehicleLocation({
+  const BaseLocation({
     this.latitude,
     this.longitude,
     this.address = '',
     this.addressNote = '',
   });
 
-  VehicleLocation copyWith({
+  BaseLocation copyWith({
     double? latitude,
     double? longitude,
     String? address,
     String? addressNote,
   }) {
-    return VehicleLocation(
+    return BaseLocation(
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       address: address ?? this.address,
@@ -36,8 +36,8 @@ class VehicleLocation extends Equatable {
     };
   }
 
-  factory VehicleLocation.fromJson(Map<String, dynamic> json) {
-    return VehicleLocation(
+  factory BaseLocation.fromJson(Map<String, dynamic> json) {
+    return BaseLocation(
       latitude: json['latitude'],
       longitude: json['longitude'],
       address: json['address'],

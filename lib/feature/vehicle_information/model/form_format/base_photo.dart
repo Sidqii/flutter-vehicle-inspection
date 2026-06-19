@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class VehiclePhoto extends Equatable {
+class BasePhoto extends Equatable {
   final String label;
   final String path;
   final double? latitude;
@@ -8,7 +8,7 @@ class VehiclePhoto extends Equatable {
   final DateTime timeStamp;
   final String surveyorName;
 
-  const VehiclePhoto({
+  const BasePhoto({
     required this.label,
     required this.path,
     required this.latitude,
@@ -28,8 +28,8 @@ class VehiclePhoto extends Equatable {
     };
   }
 
-  factory VehiclePhoto.fromJson(Map<String, dynamic> json) {
-    return VehiclePhoto(
+  factory BasePhoto.fromJson(Map<String, dynamic> json) {
+    return BasePhoto(
       label: json['label'],
       path: json['path'],
       latitude: json['latitude'],
