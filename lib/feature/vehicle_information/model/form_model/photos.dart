@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/base_photo.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_photo.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/base_photo.dart';
 
 class Photos extends Equatable {
   final BasePhoto? front;
@@ -23,6 +24,44 @@ class Photos extends Equatable {
     left,
     speedometer,
   ].every((element) => element != null);
+
+  BasePhoto? getByType(EnumPhoto type) {
+    switch (type) {
+      case EnumPhoto.front:
+        return front;
+
+      case EnumPhoto.back:
+        return back;
+
+      case EnumPhoto.left:
+        return left;
+
+      case EnumPhoto.right:
+        return right;
+
+      case EnumPhoto.speedometer:
+        return speedometer;
+    }
+  }
+
+  Photos updateByType(EnumPhoto type, BasePhoto photo) {
+    switch (type) {
+      case EnumPhoto.front:
+        return copyWith(front: photo);
+
+      case EnumPhoto.back:
+        return copyWith(back: photo);
+
+      case EnumPhoto.left:
+        return copyWith(left: photo);
+
+      case EnumPhoto.right:
+        return copyWith(right: photo);
+
+      case EnumPhoto.speedometer:
+        return copyWith(speedometer: photo);
+    }
+  }
 
   Photos copyWith({
     BasePhoto? front,
@@ -52,17 +91,13 @@ class Photos extends Equatable {
 
   factory Photos.fromJson(Map<String, dynamic> json) {
     return Photos(
-      front: json['front'] == null
-          ? null
-          : BasePhoto.fromJson(json['front']),
+      front: json['front'] == null ? null : BasePhoto.fromJson(json['front']),
 
       back: json['back'] == null ? null : BasePhoto.fromJson(json['back']),
 
       left: json['left'] == null ? null : BasePhoto.fromJson(json['left']),
 
-      right: json['right'] == null
-          ? null
-          : BasePhoto.fromJson(json['right']),
+      right: json['right'] == null ? null : BasePhoto.fromJson(json['right']),
 
       speedometer: json['speedometer'] == null
           ? null

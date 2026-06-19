@@ -4,8 +4,7 @@ import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/en
 import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_exterior.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_movement.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/model/enum/enum_photo.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/base_photo.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/photos.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/base_photo.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/model/validator/input_validator.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/model/vehicle_inspection_form.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/service/vehicle_location_service.dart';
@@ -18,12 +17,12 @@ part 'vehicle_state.dart';
 class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   final VehicleLocationService locationService;
   final VehiclePhotoService photoService;
-  final VehicleDratfStorage dratfStorage;
+  final VehicleDratfStorage draftStorage;
 
   VehicleBloc({
     required this.locationService,
     required this.photoService,
-    required this.dratfStorage,
+    required this.draftStorage,
   }) : super(const VehicleState()) {
     on<PlateNumberEvent>(_plateEvent);
     on<KilometerEvent>(_kilometerEvent);
@@ -184,31 +183,10 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
         surveyorName: 'King qi`s burger',
       );
 
-      final photos = state.form.photos;
-
-      Photos updatePhotos;
-
-      switch (event.valueType) {
-        case EnumPhoto.front:
-          updatePhotos = photos.copyWith(front: photo);
-          break;
-
-        case EnumPhoto.back:
-          updatePhotos = photos.copyWith(back: photo);
-          break;
-
-        case EnumPhoto.left:
-          updatePhotos = photos.copyWith(left: photo);
-          break;
-
-        case EnumPhoto.right:
-          updatePhotos = photos.copyWith(right: photo);
-          break;
-
-        case EnumPhoto.speedometer:
-          updatePhotos = photos.copyWith(speedometer: photo);
-          break;
-      }
+      final updatePhotos = state.form.photos.updateByType(
+        event.valueType,
+        photo,
+      );
 
       emit(state.copyWith(form: state.form.copyWith(photos: updatePhotos)));
     } catch (e) {
@@ -249,7 +227,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
       return;
     }
 
-    await dratfStorage.clearDraft();
+    await draftStorage.clearDraft();
 
     emit(state.copyWith(status: VehicleInspectionStatus.success));
 
@@ -257,11 +235,11 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   }
 
   Future<void> _saveDraftEvent(SaveDraftEvent event, Emitter emit) async {
-    await dratfStorage.saveDraft(state.form);
+    await draftStorage.saveDraft(state.form);
   }
 
   Future<void> _loadDraftEvent(LoadDraftEvent event, Emitter emit) async {
-    final draft = await dratfStorage.loadDraft();
+    final draft = await draftStorage.loadDraft();
 
     if (draft == null) return;
 
@@ -269,6 +247,6 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
   }
 
   Future<void> _clearDraftEvent(ClearDraftEvent event, Emitter emit) async {
-    await dratfStorage.clearDraft();
+    await draftStorage.clearDraft();
   }
 }

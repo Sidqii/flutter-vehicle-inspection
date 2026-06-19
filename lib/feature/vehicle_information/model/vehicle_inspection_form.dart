@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/information.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/base_location.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/movement.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/photos.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/signature.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/information.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/base_location.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/movement.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/photos.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/signature.dart';
 
 class VehicleInspectionForm extends Equatable {
   final Information information;

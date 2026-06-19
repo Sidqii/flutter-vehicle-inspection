@@ -20,39 +20,59 @@ class TakePhoto extends StatelessWidget {
     showModalBottomSheet(
       backgroundColor: Colors.white,
       useSafeArea: true,
-
       context: context,
+
       builder: (context) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        return BlocProvider.value(
+          value: bloc,
+          child: BlocBuilder<VehicleBloc, VehicleState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 30,
+                ),
 
-            child: Column(
-              children: EnumPhoto.values.map((type) {
-                return ListTile(
-                  leading: const Icon(Icons.camera_alt),
+                child: Column(
+                  children: EnumPhoto.values.map((type) {
+                    final isTaken = state.form.photos.getByType(type) != null;
 
-                  title: Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(text: 'Ambil foto '),
+                    return ListTile(
+                      leading: Icon(
+                        Icons.camera_alt,
+                        color: Colors.grey.shade700,
+                      ),
 
+                      title: Text.rich(
                         TextSpan(
-                          text: type.label,
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          children: [
+                            TextSpan(text: 'Ambil foto '),
+
+                            TextSpan(
+                              text: type.label,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
 
-                  onTap: () {
-                    Navigator.pop(context);
+                      trailing: isTaken
+                          ? Icon(
+                              Icons.check_circle,
+                              color: Colors.green.shade700,
+                            )
+                          : null,
 
-                    bloc.add(TakePhotoEvent(type));
-                  },
-                );
-              }).toList(),
-            ),
+                      onTap: () {
+                        Navigator.pop(context);
+
+                        bloc.add(TakePhotoEvent(type));
+                      },
+                    );
+                  }).toList(),
+                ),
+              );
+            },
           ),
         );
       },

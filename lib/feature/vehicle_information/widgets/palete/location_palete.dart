@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/bloc/vehicle_bloc.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/base_location.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/base_location.dart';
 
 class LocationPalete extends StatelessWidget {
   const LocationPalete({super.key});
@@ -25,7 +25,7 @@ class LocationPalete extends StatelessWidget {
 
           child: Text.rich(
             TextSpan(
-              style: TextStyle(color: Colors.grey.shade900, fontSize: 16),
+              style: TextStyle(color: Colors.grey.shade900, fontSize: 15),
 
               children: [
                 TextSpan(

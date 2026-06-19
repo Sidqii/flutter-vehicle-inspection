@@ -21,7 +21,7 @@ class MainApp extends StatelessWidget {
           return VehicleBloc(
             locationService: VehicleLocationService(),
             photoService: VehiclePhotoService(),
-            dratfStorage: VehicleDratfStorage(),
+            draftStorage: VehicleDratfStorage(),
           );
         },
         child: const HomePage(),

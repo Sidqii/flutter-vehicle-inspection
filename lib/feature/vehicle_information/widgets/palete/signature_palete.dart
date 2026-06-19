@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/bloc/vehicle_bloc.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/signature.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/signature.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/page/signature_pad_page.dart';
 
 class SignaturePalete extends StatelessWidget {

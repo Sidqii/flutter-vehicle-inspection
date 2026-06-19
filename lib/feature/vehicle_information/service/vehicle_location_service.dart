@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/base_location.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/base_location.dart';
 
 class VehicleLocationService {
   Future<bool> _handlerPermission() async {

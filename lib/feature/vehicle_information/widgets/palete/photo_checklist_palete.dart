@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/bloc/vehicle_bloc.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/base_photo.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/photos.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/base_photo.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/photos.dart';
 
 class PhotoChecklistPalete extends StatelessWidget {
   const PhotoChecklistPalete({super.key});
@@ -59,6 +59,7 @@ class _PhotoItem extends StatelessWidget {
         dividerColor: Colors.transparent,
         splashColor: Colors.transparent,
       ),
+
       child: ExpansionTile(
         enabled: isTaken,
 
@@ -85,16 +86,16 @@ class _PhotoItem extends StatelessWidget {
 
         leading: Icon(
           isTaken ? Icons.check_circle : Icons.radio_button_unchecked,
-          color: isTaken ? Colors.green : Colors.red,
+          color: isTaken ? Colors.green.shade700 : Colors.red.shade700,
           size: 15,
         ),
 
         trailing: Text(
           isTaken ? 'Sudah' : 'Belum',
           style: TextStyle(
-            color: isTaken ? Colors.green : Colors.red,
+            color: isTaken ? Colors.green.shade700 : Colors.red.shade700,
             fontWeight: FontWeight.w500,
-            fontSize: 14
+            fontSize: 14,
           ),
         ),
 

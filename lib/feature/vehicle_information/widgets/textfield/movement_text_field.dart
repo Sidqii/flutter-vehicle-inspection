@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehicle_inspection_app/feature/vehicle_information/bloc/vehicle_bloc.dart';
-import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_format/movement.dart';
+import 'package:vehicle_inspection_app/feature/vehicle_information/model/form_model/movement.dart';
 
 class MovementTextField extends StatefulWidget {
   const MovementTextField({super.key});
