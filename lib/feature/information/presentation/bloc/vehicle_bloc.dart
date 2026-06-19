@@ -1,28 +1,35 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vehicle_inspection_app/config/storage/draft_storage.dart';
-import 'package:vehicle_inspection_app/feature/information/data/datasource/location_datasource.dart';
-import 'package:vehicle_inspection_app/feature/information/data/datasource/photo_datasource.dart';
 import 'package:vehicle_inspection_app/feature/information/domain/enum/enum_engine.dart';
 import 'package:vehicle_inspection_app/feature/information/domain/enum/enum_exterior.dart';
 import 'package:vehicle_inspection_app/feature/information/domain/enum/enum_movement.dart';
 import 'package:vehicle_inspection_app/feature/information/domain/enum/enum_photo.dart';
-import 'package:vehicle_inspection_app/feature/information/domain/entities/base_photo.dart';
-import 'package:vehicle_inspection_app/feature/information/domain/validator/input_validator.dart';
+import 'package:vehicle_inspection_app/feature/information/domain/usecase/clear_draft_usecase.dart';
+import 'package:vehicle_inspection_app/feature/information/domain/usecase/current_location_usecase.dart';
+import 'package:vehicle_inspection_app/feature/information/domain/usecase/load_draft_usecase.dart';
+import 'package:vehicle_inspection_app/feature/information/domain/usecase/save_draft_usecase.dart';
+import 'package:vehicle_inspection_app/feature/information/domain/usecase/submit_form_usecase.dart';
+import 'package:vehicle_inspection_app/feature/information/domain/usecase/take_photo_usecase.dart';
 import 'package:vehicle_inspection_app/feature/information/domain/entities/vehicle_inspection_form.dart';
 
 part 'vehicle_event.dart';
 part 'vehicle_state.dart';
 
 class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
-  final LocationDatasource locationService;
-  final PhotoDatasource photoService;
-  final DraftStorage draftStorage;
+  final CurrentLocationUsecase locationUsecase;
+  final TakePhotoUsecase photoUsecase;
+  final SubmitFormUsecase submitUsecase;
+  final SaveDraftUsecase saveUsecase;
+  final LoadDraftUsecase loadUsecase;
+  final ClearDraftUsecase clearUsecase;
 
   VehicleBloc({
-    required this.locationService,
-    required this.photoService,
-    required this.draftStorage,
+    required this.locationUsecase,
+    required this.photoUsecase,
+    required this.submitUsecase,
+    required this.saveUsecase,
+    required this.loadUsecase,
+    required this.clearUsecase,
   }) : super(const VehicleState()) {
     on<PlateNumberEvent>(_plateEvent);
     on<KilometerEvent>(_kilometerEvent);
@@ -152,12 +159,18 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
     try {
       emit(state.copyWith(status: VehicleInspectionStatus.loading));
 
-      final location = await locationService.getCurrentLocation();
+      final location = await locationUsecase.call();
 
       emit(
         state.copyWith(
           status: VehicleInspectionStatus.initial,
-          form: state.form.copyWith(location: location),
+          form: state.form.copyWith(
+            location: state.form.location.copyWith(
+              latitude: location.latitude,
+              longitude: location.longitude,
+              address: location.address,
+            ),
+          ),
         ),
       );
     } catch (e) {
@@ -172,18 +185,12 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
 
   Future<void> _takePhotoEvent(TakePhotoEvent event, Emitter emit) async {
     try {
-      final path = await photoService.takePhoto();
-
-      if (path == null) return;
-
-      final photo = BasePhoto(
-        label: event.valueType.label,
-        path: path,
-        latitude: state.form.location.latitude,
-        longitude: state.form.location.longitude,
-        timeStamp: DateTime.now(),
-        surveyorName: 'King qi`s burger',
+      final photo = await photoUsecase.call(
+        photoType: event.valueType,
+        photoLocation: state.form.location,
       );
+
+      if (photo == null) return;
 
       final updatePhotos = state.form.photos.updateByType(
         event.valueType,
@@ -219,7 +226,7 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
       state.copyWith(status: VehicleInspectionStatus.initial, message: null),
     );
 
-    final error = InputValidator.validate(state.form);
+    final error = await submitUsecase.call(state.form);
 
     if (error != null) {
       emit(
@@ -229,24 +236,20 @@ class VehicleBloc extends Bloc<VehicleEvent, VehicleState> {
       return;
     }
 
-    await draftStorage.clearDraft();
-
     emit(const VehicleState(status: VehicleInspectionStatus.success));
   }
 
   Future<void> _saveDraftEvent(SaveDraftEvent event, Emitter emit) async {
-    await draftStorage.saveDraft(state.form);
+    await saveUsecase.call(state.form);
   }
 
   Future<void> _loadDraftEvent(LoadDraftEvent event, Emitter emit) async {
-    final draft = await draftStorage.loadDraft();
-
-    if (draft == null) return;
+    final draft = await loadUsecase.call();
 
     emit(state.copyWith(form: draft));
   }
 
   Future<void> _clearDraftEvent(ClearDraftEvent event, Emitter emit) async {
-    await draftStorage.clearDraft();
+    await clearUsecase.call();
   }
 }
